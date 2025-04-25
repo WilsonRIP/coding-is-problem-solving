@@ -1,6 +1,60 @@
-@import "tailwindcss";
+/* ./src/styles/globals.css */
 
-@theme {
-  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif,
-    "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+/* Import all of Tailwind's base styles, components, and utilities */
+@import 'tailwindcss';
+
+@layer base {
+  /* Apply base styles for light and dark mode */
+  body {
+    @apply text-gray-900; /* Base text color */
+    background-color: theme('colors.gray.50'); /* Base background color */
+    /* Add subtle noise texture for light mode */
+    background-image: radial-gradient(
+      theme('colors.gray.300 / 0.1') 1px,
+      transparent 1px
+    );
+    background-size: 4px 4px;
+  }
+
+  /* Changed selector from body.dark to .dark body */
+  .dark body {
+    @apply text-gray-100; /* Dark mode text */
+    background-color: theme('colors.gray.950'); /* Dark mode background */
+    /* Add subtle noise texture for dark mode */
+    background-image: radial-gradient(
+      theme('colors.gray.700 / 0.1') 1px,
+      transparent 1px
+    );
+    background-size: 4px 4px;
+  }
 }
+
+/* Define CSS Variables for fonts.
+  Color variables are handled in tailwind.config.js
+  and applied via Tailwind utility classes for better integration.
+*/
+:root {
+  --font-sans:
+    var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif,
+    'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+}
+
+/*
+  Removed explicit body and footer styles.
+  Apply background, text colors, and font family using Tailwind classes
+  in your main layout component (e.g., app/layout.tsx).
+
+  Example in app/layout.tsx:
+  <body className={cn(
+    "min-h-screen bg-background font-sans antialiased",
+    inter.variable // or your chosen font variable
+  )>
+    ...
+  </body>
+*/
+
+/*
+  Removed [data-theme='dark'] CSS variables.
+  Tailwind's dark mode utility classes (e.g., dark:bg-background)
+  configured in tailwind.config.js should be used instead.
+*/
